@@ -1,0 +1,20 @@
+# ─────────────────────────────────────────
+#   License Plate Detection - Requirements
+# ─────────────────────────────────────────
+
+# Core detection
+ultralytics          # YOLOv8 model
+
+# OCR
+easyocr              # Recommended OCR engine
+# pytesseract        # Uncomment if using tesseract instead
+
+# Image & video processing
+opencv-python        # Video reading, drawing, image processing
+numpy                # Array operations
+
+# Config
+pyyaml               # Load config.yaml
+
+# Utilities
+pandas               # Optional: for reading/analyzing detections.csv
