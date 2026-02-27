@@ -1,0 +1,37 @@
+# ─────────────────────────────────────────
+#   License Plate Detection - Config File
+# ─────────────────────────────────────────
+
+# ── Model Settings ──────────────────────
+model:
+  # Option A: Auto-download from HuggingFace (recommended, no setup needed)
+  path: "keremberke/yolov8n-license-plate-detection"
+
+  # Option B: Local file (uncomment if you downloaded the .pt file manually)
+  # path: "models/yolov8n-license-plate.pt"
+
+  confidence: 0.5       # Detection threshold (0.0 - 1.0). Start with 0.5
+  device: "cpu"         # Use "cpu" for weak laptops, "cuda" for NVIDIA GPU
+
+# ── OCR Settings ────────────────────────
+ocr:
+  engine: "easyocr"     # "easyocr" (recommended) or "tesseract"
+  languages:
+    - "en"              # Add more if needed e.g. "ar", "fr"
+
+# ── Input Settings ───────────────────────
+input:
+  video_path: "input/videos/test_video.mp4"   # ← PUT YOUR VIDEO PATH HERE
+
+# ── Output Settings ──────────────────────
+output:
+  save_video: true                              # Save annotated output video
+  video_path: "output/videos/result.mp4"       # Where to save output video
+
+  save_crops: true                              # Save cropped plate images
+  crops_dir:  "output/crops"                   # Where to save cropped plates
+
+  log_csv: true                                 # Save detections to CSV
+  log_path: "logs/detections.csv"              # Where to save CSV log
+
+  skip_frames: 2        # Process every Nth frame (2 = every other frame)
