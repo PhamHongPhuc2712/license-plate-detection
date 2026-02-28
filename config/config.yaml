@@ -34,4 +34,4 @@ output:
   log_csv: true                                 # Save detections to CSV
   log_path: "logs/detections.csv"              # Where to save CSV log
 
-  skip_frames: 2        # Process every Nth frame (2 = every other frame)
+  skip_frames: 4        # Process every Nth frame (2 = every other frame)
