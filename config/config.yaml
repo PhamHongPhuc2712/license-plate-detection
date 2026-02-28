@@ -11,7 +11,7 @@ model:
   # path: "models/yolov8n-license-plate.pt"
 
   confidence: 0.5       # Detection threshold (0.0 - 1.0). Start with 0.5
-  device: "cpu"         # Use "cpu" for weak laptops, "cuda" for NVIDIA GPU
+  device: "cuda"         # Use "cpu" for weak laptops, "cuda" for NVIDIA GPU
 
 # ── OCR Settings ────────────────────────
 ocr:
@@ -34,4 +34,4 @@ output:
   log_csv: true                                 # Save detections to CSV
   log_path: "logs/detections.csv"              # Where to save CSV log
 
-  skip_frames: 4        # Process every Nth frame (2 = every other frame)
+  skip_frames: 2        # Process every Nth frame (2 = every other frame)
