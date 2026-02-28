@@ -5,7 +5,7 @@
 # ── Model Settings ──────────────────────
 model:
   # Option A: Auto-download from HuggingFace (recommended, no setup needed)
-  path: "yolov8n.pt"
+  path: "weights/PlateDetectorYolov8n.pt"
 
   # Option B: Local file (uncomment if you downloaded the .pt file manually)
   # path: "models/yolov8n-license-plate.pt"
