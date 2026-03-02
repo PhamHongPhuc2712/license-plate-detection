@@ -26,7 +26,7 @@ Video Frame
 
 The pipeline annotates each frame with a bounding box around the detected vehicle and the extracted plate text as a label above the box.
 
-<video src="output/videos/result.mp4" controls width="100%"></video>
+<video src="https://github.com/PhamHongPhuc2712/license-plate-detection/releases/download/demo/result.mp4" controls width="100%"></video>
 
 Each tracked vehicle is assigned a persistent ID across frames. Plate text is displayed in real time as OCR reads each crop.
 
