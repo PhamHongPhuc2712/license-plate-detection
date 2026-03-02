@@ -22,28 +22,13 @@ Video Frame
               └─ Outputs annotated video + saved crops + CSV log
 ```
 
-## Project Structure
+## Sample Output
 
-```
-license-plate-detection/
-├── app.py                  # Entry point — loads config, wires components, runs pipeline
-├── config/
-│   └── config.yaml         # All settings (model path, device, OCR engine, I/O paths)
-├── src/
-│   ├── detector.py         # LicensePlateDetector — two-model YOLO detection + tracking
-│   ├── ocr.py              # PlateOCR — PaddleOCR text extraction
-│   ├── pipeline.py         # LicensePlatePipeline — orchestrates detection → OCR → output
-│   └── utils.py            # Drawing, cropping, CSV logging, video writer helpers
-├── weights/
-│   └── PlateDetectorYolov8n.pt  # Custom-trained plate detection model
-├── input/
-│   └── videos/             # Put your input video here
-├── output/
-│   ├── videos/             # Annotated output video saved here
-│   └── crops/              # Cropped plate images saved here
-└── logs/
-    └── detections.csv      # Frame-by-frame detection log
-```
+The pipeline annotates each frame with a bounding box around the detected vehicle and the extracted plate text as a label above the box.
+
+![Sample Output](output/videos/result.mp4)
+
+Each tracked vehicle is assigned a unique color and a persistent ID across frames. Plate text is displayed in real time as OCR reads each crop.
 
 ## Setup
 
