@@ -22,13 +22,9 @@ class PlateOCR:
             if not result or not result[0]:
                 return ""
                 
-            text_parts = []
-            for line in result[0]:
-                box, (detected_text, confidence) = line
-                text_parts.append(detected_text)
-
-            # Combine all detected parts
-            raw_text = " ".join(text_parts).upper()
+            # Only read the first line (single-row plates)
+            box, (detected_text, confidence) = result[0][0]
+            raw_text = detected_text.upper()
             
             # Clean up: remove non-alphanumeric characters (keep spaces if any)
             cleaned = "".join(c for c in raw_text if c.isalnum() or c == " ").strip()
