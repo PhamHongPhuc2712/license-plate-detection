@@ -14,23 +14,19 @@ def draw_results(frame: np.ndarray, results: list[dict]) -> np.ndarray:
 
     for r in results:
         text = r.get("text", "")
-        
-        # Skip drawing entirely if no text was read
-        if not text:
-            continue
-
         cx1, cy1, cx2, cy2 = r["car_box"]
 
         # --- Draw box around the CAR ---
         cv2.rectangle(annotated, (cx1, cy1), (cx2, cy2), (0, 255, 0), 2)
 
-        # Label background on top of car box
-        (tw, th), _ = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 0.8, 2)
-        cv2.rectangle(annotated, (cx1, cy1 - th - 10), (cx1 + tw + 4, cy1), (0, 255, 0), -1)
-        
-        # Draw white text
-        cv2.putText(annotated, text, (cx1 + 2, cy1 - 5),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+        if text:
+            # Label background on top of car box
+            (tw, th), _ = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 0.8, 2)
+            cv2.rectangle(annotated, (cx1, cy1 - th - 10), (cx1 + tw + 4, cy1), (0, 255, 0), -1)
+            
+            # Draw white text
+            cv2.putText(annotated, text, (cx1 + 2, cy1 - 5),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
 
     return annotated
 
@@ -54,7 +50,9 @@ def save_crop(crop: np.ndarray, output_dir: str, frame_number: int, plate_index:
 
 
 def init_csv_log(log_path: str):
-    os.makedirs(os.path.dirname(log_path), exist_ok=True)
+    log_dir = os.path.dirname(log_path)
+    if log_dir:
+        os.makedirs(log_dir, exist_ok=True)
     with open(log_path, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["timestamp", "frame_number", "car_id", "plate_text", "confidence"])
