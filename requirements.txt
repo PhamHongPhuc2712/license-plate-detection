@@ -8,8 +8,8 @@ ultralytics          # YOLOv8 model
 # OCR
 paddlepaddle         # Required by PaddleOCR
 paddleocr            # PaddleOCR engine
-langchain            # Required by paddlex (PaddleOCR dependency)
-langchain-community  # Required by paddlex (docstore)
+langchain==0.1.20    # Required by paddlex (PaddleOCR dependency)
+langchain-community==0.0.38 # Required by paddlex (docstore)
 
 # Image & video processing
 opencv-python        # Video reading, drawing, image processing
