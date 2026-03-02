@@ -30,7 +30,6 @@ class LicensePlatePipeline:
         self.save_video = config["output"].get("save_video", True)
         self.save_crops = config["output"].get("save_crops", True)
         self.log_csv = config["output"].get("log_csv", True)
-        self.skip_frames = config["output"].get("skip_frames", 2)
 
         self.output_video_path = config["output"].get("video_path", "output/videos/result.mp4")
         self.crops_dir = config["output"].get("crops_dir", "output/crops")
@@ -117,24 +116,15 @@ class LicensePlatePipeline:
         frame_number = 0
         print(f"Processing video: {video_path} ({total_frames} frames)")
 
-        last_results = []  # reuse for skipped frames
-
         while cap.isOpened():
             ret, frame = cap.read()
             if not ret:
                 break
 
-            # Skip frames for performance on weak hardware
-            if frame_number % self.skip_frames == 0:
-                annotated, results = self.process_frame(frame)
-                last_results = results
-            else:
-                # Reuse last detections but draw on new frame
-                annotated = draw_results(frame, last_results)
-                results = last_results
+            annotated, results = self.process_frame(frame)
 
             # Save crops
-            if self.save_crops and frame_number % self.skip_frames == 0:
+            if self.save_crops:
                 for i, r in enumerate(results):
                     if r.get("crop") is not None and r["crop"].size > 0:
                         save_crop(r["crop"], self.crops_dir, frame_number, i)
