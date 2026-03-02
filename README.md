@@ -26,9 +26,9 @@ Video Frame
 
 The pipeline annotates each frame with a bounding box around the detected vehicle and the extracted plate text as a label above the box.
 
-![Sample Output](output/videos/result.mp4)
+<video src="output/videos/result.mp4" controls width="100%"></video>
 
-Each tracked vehicle is assigned a unique color and a persistent ID across frames. Plate text is displayed in real time as OCR reads each crop.
+Each tracked vehicle is assigned a persistent ID across frames. Plate text is displayed in real time as OCR reads each crop.
 
 ## Setup
 
