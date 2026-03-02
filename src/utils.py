@@ -8,29 +8,29 @@ from datetime import datetime
 def draw_results(frame: np.ndarray, results: list[dict]) -> np.ndarray:
     """
     Draw box around the CAR and show plate number as label.
-    Also draws a small box around the plate itself.
+    Skips drawing if the OCR engine fails to read the plate text.
     """
     annotated = frame.copy()
 
     for r in results:
-        cx1, cy1, cx2, cy2 = r["car_box"]
-        px1, py1, px2, py2 = r["plate_box"]
         text = r.get("text", "")
-        conf = r.get("confidence", 0.0)
+        
+        # Skip drawing entirely if no text was read
+        if not text:
+            continue
 
-        label = text if text else f"Plate ({conf:.2f})"
+        cx1, cy1, cx2, cy2 = r["car_box"]
 
         # --- Draw box around the CAR ---
         cv2.rectangle(annotated, (cx1, cy1), (cx2, cy2), (0, 255, 0), 2)
 
         # Label background on top of car box
-        (tw, th), _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.8, 2)
+        (tw, th), _ = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 0.8, 2)
         cv2.rectangle(annotated, (cx1, cy1 - th - 10), (cx1 + tw + 4, cy1), (0, 255, 0), -1)
-        cv2.putText(annotated, label, (cx1 + 2, cy1 - 5),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 2)
-
-        # --- Draw small box around the PLATE ---
-        cv2.rectangle(annotated, (px1, py1), (px2, py2), (0, 200, 255), 2)
+        
+        # Draw white text
+        cv2.putText(annotated, text, (cx1 + 2, cy1 - 5),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
 
     return annotated
 
