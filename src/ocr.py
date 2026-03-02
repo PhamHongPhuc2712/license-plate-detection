@@ -5,11 +5,8 @@ class PlateOCR:
         self.engine = engine
         self.languages = languages
         
-        try:
-            from paddleocr import PaddleOCR
-            self.reader = PaddleOCR(use_angle_cls=False, lang='en', show_log=False)
-        except ImportError:
-            raise ImportError("paddleocr is not installed. Run: pip install paddlepaddle paddleocr")
+        from paddleocr import PaddleOCR
+        self.reader = PaddleOCR(use_angle_cls=False, lang='en', show_log=False)
 
     def read(self, plate_crop: np.ndarray) -> str:
         """
