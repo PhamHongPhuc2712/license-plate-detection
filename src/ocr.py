@@ -1,11 +1,10 @@
 import numpy as np
+from paddleocr import PaddleOCR
 
 class PlateOCR:
     def __init__(self, languages: list = ["en"], engine: str = "paddleocr"):
         self.engine = engine
         self.languages = languages
-        
-        from paddleocr import PaddleOCR
         self.reader = PaddleOCR(use_angle_cls=False, lang='en')
 
     def read(self, plate_crop: np.ndarray) -> str:
