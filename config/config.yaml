@@ -15,7 +15,7 @@ model:
 
 # ── OCR Settings ────────────────────────
 ocr:
-  engine: "easyocr"     
+  engine: "paddleocr"     
   languages:
     - "en"              # Add more if needed e.g. "ar", "fr"
 

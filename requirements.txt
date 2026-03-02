@@ -6,8 +6,8 @@
 ultralytics          # YOLOv8 model
 
 # OCR
-easyocr              # Recommended OCR engine
-# pytesseract        # Uncomment if using tesseract instead
+paddlepaddle         # Required by PaddleOCR
+paddleocr            # PaddleOCR engine
 
 # Image & video processing
 opencv-python        # Video reading, drawing, image processing

@@ -35,6 +35,29 @@ class LicensePlatePipeline:
         self.output_video_path = config["output"].get("video_path", "output/videos/result.mp4")
         self.crops_dir = config["output"].get("crops_dir", "output/crops")
         self.log_path = config["output"].get("log_path", "logs/detections.csv")
+        
+        # Track history for OCR voting system -> {car_id: [text1, text2, ...]}
+        self.track_history = {}
+
+    def _get_best_text(self, car_id: int, new_text: str) -> str:
+        """Keep a history of texts for a tracked car and return the most common."""
+        if car_id == -1:
+            return new_text
+            
+        if car_id not in self.track_history:
+            self.track_history[car_id] = []
+            
+        # Only add to history if OCR successfully read something
+        if new_text:
+            self.track_history[car_id].append(new_text)
+            
+        if not self.track_history[car_id]:
+            return ""
+            
+        from collections import Counter
+        # Get the most common string from the tracker
+        counts = Counter(self.track_history[car_id])
+        return counts.most_common(1)[0][0]
 
     def process_frame(self, frame: np.ndarray) -> tuple[np.ndarray, list[dict]]:
         """
@@ -51,13 +74,19 @@ class LicensePlatePipeline:
         results = []
         for det in detections:
             box = det["plate_box"]
+            car_id = det.get("car_id", -1)
             crop = crop_plate(frame, box)
-            text = self.ocr.read(crop)
+            
+            raw_text = self.ocr.read(crop)
+            
+            # Use voting system to get the most consistent text so far
+            best_text = self._get_best_text(car_id, raw_text)
+            
             results.append({
                 "car_box": det["car_box"],
                 "plate_box": box,
                 "confidence": det["confidence"],
-                "text": text,
+                "text": best_text, # Output the stabilized text
                 "crop": crop
             })
 
