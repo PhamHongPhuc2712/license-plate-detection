@@ -6,7 +6,7 @@ class PlateOCR:
         self.languages = languages
         
         from paddleocr import PaddleOCR
-        self.reader = PaddleOCR(use_angle_cls=False, lang='en', show_log=False)
+        self.reader = PaddleOCR(use_angle_cls=False, lang='en')
 
     def read(self, plate_crop: np.ndarray) -> str:
         """
