@@ -85,6 +85,7 @@ class LicensePlatePipeline:
             results.append({
                 "car_box": det["car_box"],
                 "plate_box": box,
+                "car_id": car_id,
                 "confidence": det["confidence"],
                 "text": best_text, # Output the stabilized text
                 "crop": crop
