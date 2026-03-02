@@ -50,11 +50,12 @@ class LicensePlatePipeline:
 
         results = []
         for det in detections:
-            box = det["box"]
+            box = det["plate_box"]
             crop = crop_plate(frame, box)
             text = self.ocr.read(crop)
             results.append({
-                "box": box,
+                "car_box": det["car_box"],
+                "plate_box": box,
                 "confidence": det["confidence"],
                 "text": text,
                 "crop": crop
