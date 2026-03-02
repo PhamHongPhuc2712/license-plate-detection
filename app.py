@@ -29,7 +29,7 @@ def main():
     # ── Load Detector ─────────────────────────────
     print("\n[2/4] Loading YOLO model...")
     detector = LicensePlateDetector(
-        model_path=config["model"]["path"],
+        plate_model_path=config["model"]["path"],
         confidence=config["model"]["confidence"],
         device=config["model"]["device"]
     )
