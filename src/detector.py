@@ -78,7 +78,7 @@ class LicensePlateDetector:
         """Find which car bounding box contains the plate."""
         px1, py1, px2, py2 = plate_box
         for vehicle in vehicles:
-            x1, y1, x2, y2, car_id, conf, class_id = vehicle
+            x1, y1, x2, y2, conf, class_id, car_id = vehicle
             if px1 > x1 and py1 > y1 and px2 < x2 and py2 < y2:
                 return (x1, y1, x2, y2), car_id
         return None, -1
