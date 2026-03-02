@@ -11,11 +11,11 @@ model:
   # path: "models/yolov8n-license-plate.pt"
 
   confidence: 0.5       # Detection threshold (0.0 - 1.0). Start with 0.5
-  device: "cuda"         # Use "cpu" for weak laptops, "cuda" for NVIDIA GPU
+  device: "cpu"         # Use "cpu" for weak laptops, "cuda" for NVIDIA GPU
 
 # ── OCR Settings ────────────────────────
 ocr:
-  engine: "paddleocr"     
+  engine: "paddleocr"
   languages:
     - "en"              # Add more if needed e.g. "ar", "fr"
 

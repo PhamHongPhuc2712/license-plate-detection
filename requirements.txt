@@ -6,14 +6,12 @@
 ultralytics          # YOLOv8 model
 
 # OCR
-paddlepaddle         # Required by PaddleOCR
-paddleocr            # PaddleOCR engine
-langchain==0.1.20    # Required by paddlex (PaddleOCR dependency)
-langchain-community==0.0.38 # Required by paddlex (docstore)
+paddlepaddle==2.6.2  # PaddlePaddle 3.x has an unimplemented oneDNN/PIR bug on CPU
+paddleocr==2.7.3     # Last stable 2.x release — uses the classic API (cls=False, nested list results)
 
 # Image & video processing
-opencv-python        # Video reading, drawing, image processing
-numpy                # Array operations
+opencv-python==4.8.1.78  # Last version compatible with numpy 1.x
+numpy==1.26.4            # numpy 2.x breaks PaddlePaddle
 
 # Config
 pyyaml               # Load config.yaml
